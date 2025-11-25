@@ -1,2 +1,5 @@
-# capstone-calculo1
-Trabajo colaborativo de Cálculo 1
+# Capstone calculo 1
+## Stack
+- npm@11.6.4
+- bootstrap
+
