@@ -1,0 +1,3 @@
+core/           ← lógica física y matemática
+│   │   ├── physics.js  ← fPara las formulas: y(t), a(t), v(t), etc
+│   │   └── planets.js  ← Para los datos de gravedades y los colores

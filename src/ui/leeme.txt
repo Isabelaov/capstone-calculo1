@@ -1,0 +1,4 @@
+ui/             ← interacción y visualización con el usuario
+│   │   ├── canvas.js   ← dibujo de objetos y trayectorias
+│   │   ├── controls.js ← sliders, botones, selectores
+│   │   └── graph.js    ← gráficas de posición/velocidad (lo recomiendo)

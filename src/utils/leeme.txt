@@ -1,0 +1,2 @@
+ utils/          ← funciones auxiliares
+│   │   └── formatter.js ← redondeo, conversión de unidades, etc.
