@@ -1,0 +1,28 @@
+export const App = () => {
+  return (
+    <>
+        <h1 class="text-center mb-4">Compareishon</h1>
+
+        <div class="mb-3">
+            
+            <label for="planetSelector" class="form-label">Elije un planeta:</label>
+            <select id="planetSelector" class="form-select">
+            <option value="tierra">Tierra</option>
+            <option value="luna">Luna</option>
+            <option value="marte">Marte</option>
+            <option value="jupiter">Júpiter</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="heightSlider" class="form-label">Altura inicial (m):</label>
+            <input type="range" id="heightSlider" class="form-range" min="1" max="100" value="10"/>
+            <span id="heightValue">10 m</span>
+        </div>
+
+        <button id="startSim" type="button" class="btn btn-primary">Start Simulation</button>
+
+        <canvas id="simCanvas" width="600" height="400" class="border"></canvas>
+    </>
+  )
+}

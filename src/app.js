@@ -1,20 +1,18 @@
-// app.js
 import { planets } from "./core/planets.js";
 import { position, velocity } from "./core/physics.js";
 import { drawObject } from "./ui/canvas.js";
 import { setupControls } from "./ui/controls.js";
 
-// Iniciamos la simulacion, editenlo y haganlo mejor
-setupControls(startSimulation);
 
 function startSimulation() {
   const planet = document.getElementById("planetSelector").value;
-  const h0 = parseFloat(document.getElementById("heightSlider").value);
+  // const h0 = parseFloat(document.getElementById("heightSlider").value);
   const g = planets[planet].g;
   const v0 = 0;
 
   const canvas = document.getElementById("simCanvas");
   const ctx = canvas.getContext("2d");
+  const h0 = canvas.height + 10;
 
   let t = 0;
   const dt = 0.05;
@@ -32,3 +30,5 @@ function startSimulation() {
 
   animate();
 }
+
+document.getElementById("startSim").addEventListener("click", startSimulation());
