@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <div>
-      <h1 className="text-center  font-bold">Comparador de Gravedades</h1>
+      <h1 className="text-center font-bold">Comparador de Gravedades</h1>
 
       <div className="mb-4 p-2 flex justify-content-center">
         <button 
@@ -35,7 +35,7 @@ const App = () => {
       </div>
       
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2  gap-5">
         <PlanetCard planetName="earth" onStart={handleStart}/>
         <PlanetCard planetName="moon" onStart={handleStart}/>
         <PlanetCard planetName="mars" onStart={handleStart}/>

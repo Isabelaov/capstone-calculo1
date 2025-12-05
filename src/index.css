@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+  background: linear-gradient(to bottom, #87CEEB 0%, #98D8E8 100%);
+}
+
 .planet-icon {
   width: 40px;
   height: 40px;
