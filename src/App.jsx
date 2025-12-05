@@ -1,30 +1,45 @@
-import { useState } from "react";
-import { Canvas } from "./components/Canvas";
+import { useRef, useState } from "react";
+import { PlanetCard } from "./components/PlanetCard";
+import { Loader } from "./components/Loader";
 
 const App = () => {
-  const [activeAnims, setActiveAnims] = useState(0)
+  const [disabled, setDisabled] = useState(false)
+  const starters = useRef([])
 
-  const handleStart = () => {
-    setActiveAnims(prev => prev + 1)
+  const handleStart = (fn) => {
+    starters.current.push(fn)
   }
 
-  const handleFinish = () => {
-    setActiveAnims( prev => Math.max(prev - 1, 0))
+  const handleClick = async () => {
+    setDisabled(true)
+    await Promise.all(starters.current.map(fn => fn()))
+    setDisabled(false)
   }
-
-  const loading = activeAnims > 0
 
   return (
     <div>
       <h1 className="text-center  font-bold">Comparador de Gravedades</h1>
 
       <div className="mb-4 p-2 flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg" aria-pressed="true">Empezar simulacion</button>
+        <button 
+          type="button" 
+          className="btn btn-primary btn-lg" 
+          disabled={disabled}
+          aria-pressed="true" 
+          onClick={handleClick}
+        >
+          {
+            disabled ? (<Loader/>) : (<p>Empezar simulacion</p>)
+          }
+        </button>
       </div>
+      
 
       <div className="grid grid-cols-2 gap-4">
-        <Canvas planetName="earth"/>
-        <Canvas planetName="moon"/>
+        <PlanetCard planetName="earth" onStart={handleStart}/>
+        <PlanetCard planetName="moon" onStart={handleStart}/>
+        <PlanetCard planetName="mars" onStart={handleStart}/>
+        <PlanetCard planetName="jupiter" onStart={handleStart}/>
       </div>
       
       <div className="clouds">
