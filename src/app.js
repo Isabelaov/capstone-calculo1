@@ -1,34 +1,50 @@
-// app.js
 import { planets } from "./core/planets.js";
 import { position, velocity } from "./core/physics.js";
 import { drawObject } from "./ui/canvas.js";
-import { setupControls } from "./ui/controls.js";
 
-// Iniciamos la simulacion, editenlo y haganlo mejor
-setupControls(startSimulation);
+export function animate(canvas, planet, onFrame) {
+  
+  return new Promise(res => {
+    if (!planet) {
+      res()
+    }
 
-function startSimulation() {
-  const planet = document.getElementById("planetSelector").value;
-  const h0 = parseFloat(document.getElementById("heightSlider").value);
-  const g = planets[planet].g;
-  const v0 = 0;
+    const { g, color } = planet
+    const { width, height } = canvas    
 
-  const canvas = document.getElementById("simCanvas");
-  const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d")
+    const h0 = height - 10;
+    let t = 0;
+    
+    const dt = 0.02;
+    const pixelsPerMeter = 2;
 
-  let t = 0;
-  const dt = 0.05;
-  const pixelsPerMeter = 10;
+    function frame() {
+      let frameInfo = {t, y: h0, v: 0}
+      
+      ctx.clearRect(0, 0, width, height);
+      
+      const y = position(t, h0, 0, g);
+      const screenY = height - y * pixelsPerMeter;
 
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const y = position(t, h0, v0, g);
-    const screenY = canvas.height - y * pixelsPerMeter;
-    drawObject(ctx, canvas.width / 2, screenY, planets[planet].color);
+      drawObject(ctx, width / 2, screenY, color);
+      frameInfo = {
+        t: t.toFixed(2),
+        y: y.toFixed(2),
+        v: (velocity(t, 0, g) * -1).toFixed(2)
+      }
+      if (onFrame) onFrame(frameInfo) 
 
-    t += dt;
-    if (y > 0) requestAnimationFrame(animate);
-  }
-
-  animate();
+      t += dt;
+      if (y > 0) {
+        requestAnimationFrame(frame)
+      } else {
+        res()
+      }
+    }
+    
+    requestAnimationFrame(frame)
+  })  
+  
 }
+
