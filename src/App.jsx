@@ -1,28 +1,43 @@
-export const App = () => {
+import { useState } from "react";
+import { Canvas } from "./components/Canvas";
+
+const App = () => {
+  const [activeAnims, setActiveAnims] = useState(0)
+
+  const handleStart = () => {
+    setActiveAnims(prev => prev + 1)
+  }
+
+  const handleFinish = () => {
+    setActiveAnims( prev => Math.max(prev - 1, 0))
+  }
+
+  const loading = activeAnims > 0
+
   return (
-    <>
-        <h1 class="text-center mb-4">Compareishon</h1>
+    <div>
+      <h1 className="text-center  font-bold">Comparador de Gravedades</h1>
 
-        <div class="mb-3">
-            
-            <label for="planetSelector" class="form-label">Elije un planeta:</label>
-            <select id="planetSelector" class="form-select">
-            <option value="tierra">Tierra</option>
-            <option value="luna">Luna</option>
-            <option value="marte">Marte</option>
-            <option value="jupiter">Júpiter</option>
-            </select>
-        </div>
+      <div className="mb-4 p-2 flex justify-content-center">
+        <button type="button" className="btn btn-primary btn-lg" aria-pressed="true">Empezar simulacion</button>
+      </div>
 
-        <div class="mb-3">
-            <label for="heightSlider" class="form-label">Altura inicial (m):</label>
-            <input type="range" id="heightSlider" class="form-range" min="1" max="100" value="10"/>
-            <span id="heightValue">10 m</span>
-        </div>
+      <div className="grid grid-cols-2 gap-4">
+        <Canvas planetName="earth"/>
+        <Canvas planetName="moon"/>
+      </div>
+      
+      <div className="clouds">
+        <div className="cloud cloud1"></div>
+        <div className="cloud cloud2"></div>
+        <div className="cloud cloud3"></div>
+        <div className="cloud cloud4"></div>
+        <div className="cloud cloud5"></div>
+        <div className="cloud cloud6"></div>
+      </div>
 
-        <button id="startSim" type="button" class="btn btn-primary">Start Simulation</button>
-
-        <canvas id="simCanvas" width="600" height="400" class="border"></canvas>
-    </>
+    </div>
   )
 }
+
+export default App;
